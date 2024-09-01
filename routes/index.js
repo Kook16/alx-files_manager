@@ -1,14 +1,9 @@
-import express from 'express';
-import router from './routes/index';
+import { Router } from 'express';
+import AppController from '../controllers/AppController';
 
-const PORT = process.env.PORT || 5000;
-const app = express();
+const router = Router();
 
-app.use(express.json());
-app.use('/', router);
+router.get('/status', AppController.getStatus);
+router.get('/stats', AppController.getStats);
 
-app.listen(PORT, () => {
-  console.log(`App is listening on Port ${PORT}`);
-});
-
-export default app;
+export default router;
