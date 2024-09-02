@@ -1,0 +1,29 @@
+name: Lint
+
+on: push
+
+jobs:
+  run-linters:
+    name: Run linters
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      # - name: Install dependencies
+      #   run: npm i
+
+      - name: Install ESLint and plugins
+        run: npm install eslint eslint-config-airbnb-base eslint-plugin-jest --save-dev
+
+      - name: Run linters
+        uses: samuelmeuli/lint-action@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          eslint_config_file: .eslintrc.js
